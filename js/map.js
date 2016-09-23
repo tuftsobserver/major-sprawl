@@ -146,13 +146,13 @@ var classData = {
 	wl: {olin: 1, tischlib: 1}
 };
 
-function initMap() {
+window.initMap = function() {
 	// Tufts Coordindates
 	var tuftsLat = 42.407441
 	var tuftsLng = -71.120193
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: tuftsLat, lng: tuftsLng},
-		zoom: 15,
+		zoom: 16,
 		scrollwheel: false
 	});
 

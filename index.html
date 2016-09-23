@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title> to be replaced </title>
+    <title> Major Sprawl </title>
 
     <!-- favicon -->
     <!-- <link rel="icon" href="img/favicon.ico" type="image/x-icon"/> -->
@@ -21,14 +21,35 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="css/style.css">
-  <!-- Javascript -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc8qJ-V8qY-TIbvtRNPB_ARMjvuWd33cA&callback=initMap" async defer></script>
-  <script src="js/map.js"></script>
-  <script src="js/index_script.js"></script>
 
   </head>
   <body>
-    <div id="map"></div>
-  	
+    <div id="landing-page">
+      <div id="intro-title">
+        <h1>Major Sprawl</h1>
+        <h2>How centralized are the departments at Tufts?</h2>
+        <h2>Click anywhere to advance.</h2>
+      </div>
+    </div>
+
+    <div id="interactive-wrapper">
+      <div id="map"></div>
+      <div id="sidebar">
+        <div id="sidebar-description">Click a department to see its spread.</div>
+        <div id="sidebar-spacer"></div>
+        <div class="dept-button">History</div>
+        <div class="dept-button">English</div>
+        <div class="dept-button" style="border-bottom:none">Women's Studies</div>
+      </div>
+    </div> 
+    <div id="hide-shadow"></div>
+  	<div id="article-text">
+      <p>words words words</p>
+    </div>
+
+  <!-- Javascript -->
+  <script src="js/index_script.js"></script>
+  <script src="js/map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCc8qJ-V8qY-TIbvtRNPB_ARMjvuWd33cA&callback=initMap" async defer></script>
   </body>
 </html>

@@ -1,9 +1,96 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,900);
+
 html, body {
     height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 } 
 
-#map {
+body {
+  color:rgba(0, 0, 0, 0.7);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 600%;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+#landing-page {
 	height: 100%;
+	width: 100%;
+	background-color: #ddd; 
+/*	background-image: url(../img/landing-page-background.png);*/
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+#intro-title {
+	padding-top: 20%;
+}
+
+#interactive-wrapper {
+	width: 100%;
+	height: 100vh;
+}
+
+#map {
+	position: relative;
+	height: 100%;
+	width: calc(100% - 300px);
+	float: left;
+	z-index: 1;
+}
+
+#sidebar {
+	position: relative;
+	height: 100%;
+	width: 300px;
+	float: right;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	z-index: 20;
+	overflow-y: scroll;
+	box-sizing: border-box; 
+	padding: 20px;
+}
+
+#hide-shadow {
+	position: relative;
+	top: -2px;
+	height: 5px;
+	background-color: #fff;
+	width: 100%;
+	z-index: 21;
+}
+
+.dept-button {
+	width: 100%;
+	border-bottom: 1px solid #eaeaea;
+	padding: 0.5em;
+	text-align: left;
+}
+
+.dept-button:hover {
+	background-color: #7bc96f; 
+	color: #fff;
+}
+
+#sidebar-description {
+	padding: 0.5em;
+}
+
+#sidebar-spacer {
+	height: 1em;
 }
