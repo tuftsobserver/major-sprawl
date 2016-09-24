@@ -4,6 +4,20 @@ $(document).ready(function(){
         $("#landing-page").fadeOut("slow");
         enable_scroll();
     });
+
+    $('.dept-button').click(function(){
+        drawDept($(this).attr('id'));
+        $('.dept-button').each(function(){
+            $(this).removeClass("dept-selected")
+        })
+        $(this).addClass("dept-selected")
+    });
+
+    $("#see-more").click(function() {
+        $('html,body').animate({
+            scrollTop: $("#article-text").offset().top},
+        'slow');
+    });
 });
 
 // credit for the following from http://jsfiddle.net/prSqz/17/
@@ -15,7 +29,7 @@ function preventDefault(e) {
   e = e || window.event;
   if (e.preventDefault)
       e.preventDefault();
-  e.returnValue = false;  
+  e.returnValue = false;
 }
 
 function keydown(e) {
@@ -43,5 +57,5 @@ function enable_scroll() {
     if (window.removeEventListener) {
         window.removeEventListener('DOMMouseScroll', wheel, false);
     }
-    window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+    window.onmousewheel = document.onmousewheel = document.onkeydown = null;
 }

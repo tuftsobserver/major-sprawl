@@ -1,44 +1,59 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Raleway:500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Vollkorn:400,700italic);
+
 
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-} 
+    font-size: 14px;
+}
 
 body {
-  color:rgba(0, 0, 0, 0.7);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 400;
+    color:rgba(0, 0, 0, 0.7);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
 }
 
 h1 {
-  font-size: 600%;
-  text-transform: uppercase;
-  font-weight: 900;
-  font-family: 'Raleway', sans-serif;
-  margin: 0;
-  text-align: center;
+    font-size: 9em;
+    /*text-transform: uppercase;*/
+    /*font-weight: 900;
+    font-family: 'Raleway', sans-serif;*/
+    font-weight: 700;
+    font-style:italic;
+    font-family: 'Vollkorn', serif;
+    margin: 0;
+    text-align: center;
 }
 
 h2 {
 	text-align: center;
+    font-size: 1.5em;
 }
 
 #landing-page {
 	height: 100%;
 	width: 100%;
-	background-color: #ddd; 
+	/*background-color: #ddd;*/
 /*	background-image: url(../img/landing-page-background.png);*/
+    background-color: rgba(123, 201, 111, 0.7);
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 100;
+    cursor: default;
+
+    color: white;
 }
 
 #intro-title {
-	padding-top: 20%;
+	/*All of this just vertically centers the landing page title text*/
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
 }
 
 #interactive-wrapper {
@@ -62,17 +77,17 @@ h2 {
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	z-index: 20;
 	overflow-y: scroll;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	padding: 20px;
 }
 
 #hide-shadow {
 	position: relative;
-	top: -2px;
-	height: 5px;
+	height: 4px;
 	background-color: #fff;
-	width: 100%;
+	width: 100;
 	z-index: 21;
+    border-top: 1px solid #D2D2D2;
 }
 
 .dept-button {
@@ -80,17 +95,85 @@ h2 {
 	border-bottom: 1px solid #eaeaea;
 	padding: 0.5em;
 	text-align: left;
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
 }
 
 .dept-button:hover {
-	background-color: #7bc96f; 
+	background-color: #7bc96f;
+	color: #fff;
+}
+
+.dept-button.dept-selected,
+.dept-button:hover {
+    background-color: #7bc96f;
 	color: #fff;
 }
 
 #sidebar-description {
 	padding: 0.5em;
+    width: 100%;
+	border-bottom: 1px solid #7bc96f;
+    margin-bottom: 1em;
 }
 
-#sidebar-spacer {
-	height: 1em;
+#sidebar-disclaimer {
+    font-size: 0.75em;
+    margin: 1em 0 0 0;
+    padding: 1em 0.5em 0 0.5em;
+    border-top: 1px solid #7bc96f;
+}
+
+#see-more {
+    position: absolute;
+    top: calc(100vh - 4em);
+    left: 1em;
+    width: 8em;
+    height: 3em;
+    box-sizing: border-box;
+    padding: .75em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: #7bc96f;
+    color: white;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 700;
+    text-transform:uppercase;
+    z-index: 90;
+    cursor: pointer;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+}
+
+#article-text {
+    max-width: calc(100% - 400px);
+    width: 45em;
+    margin: 100px auto;
+    /*max-width: 100%;*/
+}
+
+#article-text h1 {
+    font-size: 5em;
+}
+
+#article-text p{
+    font-family: 'Vollkorn', serif;
+    font-size: 1.3em;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 2em;
+    margin: 1em;
+}
+
+/*hides the 'x' from circle infowindows*/
+.gm-style-iw + div {display: none;}
+
+.fa-map-marker {
+    color: #7bc96f;
 }

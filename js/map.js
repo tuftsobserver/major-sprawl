@@ -1,5 +1,47 @@
 var map;
 
+var allCircles = [];
+
+var niceBuildingNames = {
+	talbot11: 		"11 Talbot Ave",
+	college177: 	"177 College Ave",
+	boston200: 		"200 Boston Ave",
+	winthrop26: 	"26 Winthrop",
+	boston574: 		"574 Boston Ave",
+	pro72: 			"72 Professor's Row",
+	talbot97: 		"97 Talbot Ave",
+	aidekman: 		"Aidekman",
+	anderson: 		"Anderson",
+	bacon: 			"Bacon Hall",
+	barnum: 		"Barnum",
+	braker: 		"Braker",
+	bp: 			"Bromfield-Pearson",
+	cabot: 			"Cabot Auditorium",
+	cousens: 		"Cousens Gym",
+	east: 			"East",
+	eaton: 			"Eaton",
+	ep: 			"Eliot-Pearson",
+	gantcher: 		"Gantcher",
+	granoff: 		"Granoff",
+	halligan: 		"Halligan",
+	hillel: 		"Hillel",
+	jackson: 		"Jackson Gym",
+	lane: 			"Lane",
+	lincoln: 		"Lincoln-Filene Center",
+	miller: 		"Miller Hall",
+	miner: 			"Miner",
+	olin: 			"Olin",
+	packard: 		"Packard Hall",
+	paige: 			"Paige",
+	pearson: 		"Pearson",
+	hanger: 		"Performance Hanger",
+	psychbuilding: 	"Psychology Building",
+	scitech: 		"Sci-Tech Center",
+	sogo: 			"Sophia-Gordon Multipurpose Room",
+	tischlib: 		"Tisch",
+	tischsports: 	"Tisch Sports Center"
+}
+
 // Lat/lng of all buildings
 var buildingsCoords = {
 	talbot11: 		{center: {lat: 42.405014, lng: -71.118021}},
@@ -146,45 +188,86 @@ var classData = {
 	wl: {olin: 1, tischlib: 1}
 };
 
+// Greyscale style for map from mapstyle.withgoogle.com
+var greyscaleColorSchemeJSON =  [{"elementType":"geometry","stylers":[{"color":"#f5f5f5"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#f5f5f5"}]},{"featureType":"administrative.land_parcel","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#dadada"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#c9c9c9"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]}];
+
+
+
 window.initMap = function() {
+
+	// Greyscale style for map from mapstyle.withgoogle.com
+	var styledMapType = new google.maps.StyledMapType(greyscaleColorSchemeJSON, {name: 'Styled Map'});
 	// Tufts Coordindates
 	var tuftsLat = 42.407441
 	var tuftsLng = -71.120193
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: tuftsLat, lng: tuftsLng},
 		zoom: 16,
-		scrollwheel: false
+		scrollwheel: false,
+		mapTypeControl: false,
+		streetViewControl: false
+	});
+
+	map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
+
+	drawDept("eng");
+}
+
+// puts circles on the page for the given dept
+function drawDept(dept) {
+
+	destroyCircles(); // clear the map
+
+	var maxClasses = 0;
+	for (var bldg in classData[dept]) {
+		if (classData[dept][bldg] > maxClasses) {
+			maxClasses = classData[dept][bldg];
+		}
+	} for (var bldg in classData[dept]) {
+		drawCircle(dept, bldg, maxClasses);
+	}
+}
+
+function drawCircle(dept, bldg, maxClasses) {
+	var circle = new google.maps.Circle({
+		clickable: true,
+		strokeColor: '#7bc96f',
+		strokeOpacity: 0.8,
+		strokeWeight: 1,
+		fillColor: '#7bc96f',
+		fillOpacity: 0.35,
+		map: map,
+		center: buildingsCoords[bldg].center,
+		radius: (classData[dept][bldg] / maxClasses) * 43 + 7 // Squeezes circle size bw 7 and 50
+	});
+
+	// Window contains building name and number of classes
+	var infoWindow= new google.maps.InfoWindow({
+		content: niceBuildingNames[bldg] + ": " + classData[dept][bldg],
+		customInfo: ""
 	});
 
 
 
-	// Example circle
-	// var circle = new google.maps.Circle({
-	// 	strokeColor: '#FF0000',
-    //     strokeOpacity: 0.8,
-    //     strokeWeight: 2,
-    //     fillColor: '#FF0000',
-    //     fillOpacity: 0.35,
-    //     map: map,
-    //     center: {lat: 42.404896, lng: -71.118387},
-    //     radius: 100
-    // });
 
-	// Example of class distribution for one dept
-	var dept = "eng";
-	for (var bldg in classData[dept]) {
-		var cityCircle = new google.maps.Circle({
-			clickable: true,
-			strokeColor: '#FF0000',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#FF0000',
-			fillOpacity: 0.35,
-			map: map,
-			center: buildingsCoords[bldg].center,
-			radius: classData[dept][bldg] * 5
-			// Need a better scaler for radius. Good min: 5, max 50
-			// Circles need labels too http://stackoverflow.com/questions/6584358/google-maps-v3-adding-an-info-window-to-a-circle
-		});
-   	}
+	// Show infowindow on circle hover, disappear when un-hover
+	google.maps.event.addListener(circle, 'mouseover', function(ev){
+		infoWindow.setPosition(circle.getCenter());
+		infoWindow.open(map);
+
+		google.maps.event.addListenerOnce(map, 'mousemove', function(){
+	        infoWindow.close();
+	    });
+	});
+
+	allCircles.push(circle);
+}
+
+function destroyCircles() {
+	while(allCircles.length) {
+		allCircles.pop().setMap(null);
+	}
+	allCircles.length = 0;
+	// cityCircle.setMap(null);
 }
