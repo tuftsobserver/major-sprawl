@@ -11,6 +11,10 @@ $(document).ready(function(){
             $(this).removeClass("dept-selected")
         })
         $(this).addClass("dept-selected")
+
+        if ($(window).width() <= 840) {
+            closeSidebar();
+        }
     });
 
     $("#see-more").click(function() {
@@ -18,7 +22,25 @@ $(document).ready(function(){
             scrollTop: $("#article-text").offset().top},
         'slow');
     });
+
+    $('#close-sidebar').click(closeSidebar);
+
+    $('#open-sidebar').click(openSidebar);
 });
+
+function openSidebar() {
+    $('#map').css("width", "calc(100% - 300px)");
+    google.maps.event.trigger(map, "resize");
+    $('#sidebar').css("display", "block");
+    $('#open-sidebar').css("display", "none");
+}
+
+function closeSidebar() {
+    $('#sidebar').css("display", "none");
+    $('#map').css("width", "100%");
+    google.maps.event.trigger(map, "resize");
+    $('#open-sidebar').css("display", "block");
+}
 
 // credit for the following from http://jsfiddle.net/prSqz/17/
 // left: 37, up: 38, right: 39, down: 40,

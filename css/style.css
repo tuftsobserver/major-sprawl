@@ -54,6 +54,8 @@ h2 {
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
+    box-sizing:border-box;
+    padding: 0.5em;
 }
 
 #interactive-wrapper {
@@ -115,7 +117,7 @@ h2 {
 
 #sidebar-description {
 	padding: 0.5em;
-    width: 100%;
+    width: auto;
 	border-bottom: 1px solid #7bc96f;
     margin-bottom: 1em;
 }
@@ -162,7 +164,7 @@ h2 {
     font-size: 5em;
 }
 
-#article-text p{
+#article-text p {
     font-family: 'Vollkorn', serif;
     font-size: 1.3em;
     line-height: 1.5;
@@ -176,4 +178,45 @@ h2 {
 
 .fa-map-marker {
     color: #7bc96f;
+}
+
+#close-sidebar {
+    position: relative;
+    float: right;
+    right: 0;
+    top: 0;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#open-sidebar {
+    display: none;
+    position: absolute;
+    right: 1em;
+    top: .75em;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.visible-mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 840px) {
+
+    #intro-title h1 {
+        font-size: 6em;
+    }
+
+    #article-text {
+        max-width: 100%;
+    }
+
+    .visible-mobile {
+        display: block;
+    }
+
+    /*sidebar can hide*/
+    /*stats aren't on side of article anymore but are in the article */
 }

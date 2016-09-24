@@ -193,7 +193,7 @@ var greyscaleColorSchemeJSON =  [{"elementType":"geometry","stylers":[{"color":"
 
 
 
-window.initMap = function() {
+function initMap() {
 
 	// Greyscale style for map from mapstyle.withgoogle.com
 	var styledMapType = new google.maps.StyledMapType(greyscaleColorSchemeJSON, {name: 'Styled Map'});
@@ -210,13 +210,11 @@ window.initMap = function() {
 
 	map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
-
-	drawDept("eng");
 }
 
 // puts circles on the page for the given dept
 function drawDept(dept) {
-
+	
 	destroyCircles(); // clear the map
 
 	var maxClasses = 0;
