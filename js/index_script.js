@@ -1,10 +1,13 @@
 $(document).ready(function(){
+
+    /* no scrolling on landing page until click */
     disable_scroll();
     $("#landing-page").click(function(){
         $("#landing-page").fadeOut("slow");
         enable_scroll();
     });
 
+    /* when click dept, draw circle and close sidebar if mobile */
     $('.dept-button').click(function(){
         drawDept($(this).attr('id'));
         $('.dept-button').each(function(){
@@ -17,15 +20,23 @@ $(document).ready(function(){
         }
     });
 
+    /* scroll to article on 'see more' click */
     $("#see-more").click(function() {
         $('html,body').animate({
-            scrollTop: $("#article-text").offset().top},
+            scrollTop: $("#hide-shadow").offset().top},
         'slow');
     });
 
     $('#close-sidebar').click(closeSidebar);
-
     $('#open-sidebar').click(openSidebar);
+
+    /* show blockquotes on scroll down */
+    $('.ha-waypoint').each(function(i) {
+        var quoteID = $(this).data('animateDown');
+        $(this).waypoint(function() {
+            $('#' + quoteID).fadeIn(1000);
+        }, {offset: '50%'});
+    });
 });
 
 function openSidebar() {
@@ -43,6 +54,7 @@ function closeSidebar() {
 }
 
 // credit for the following from http://jsfiddle.net/prSqz/17/
+// prevents scrolling
 // left: 37, up: 38, right: 39, down: 40,
 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
 var keys = [37, 38, 39, 40];

@@ -1,5 +1,4 @@
 var map;
-
 var allCircles = [];
 
 var niceBuildingNames = {
@@ -188,18 +187,16 @@ var classData = {
 	wl: {olin: 1, tischlib: 1}
 };
 
+// This is also ugly sorry
 // Greyscale style for map from mapstyle.withgoogle.com
 var greyscaleColorSchemeJSON =  [{"elementType":"geometry","stylers":[{"color":"#f5f5f5"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#f5f5f5"}]},{"featureType":"administrative.land_parcel","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#dadada"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"color":"#e5e5e5"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#eeeeee"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#c9c9c9"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]}];
 
-
-
 function initMap() {
-
-	// Greyscale style for map from mapstyle.withgoogle.com
 	var styledMapType = new google.maps.StyledMapType(greyscaleColorSchemeJSON, {name: 'Styled Map'});
-	// Tufts Coordindates
+
 	var tuftsLat = 42.407441
 	var tuftsLng = -71.120193
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: tuftsLat, lng: tuftsLng},
 		zoom: 16,
@@ -214,7 +211,6 @@ function initMap() {
 
 // puts circles on the page for the given dept
 function drawDept(dept) {
-	
 	destroyCircles(); // clear the map
 
 	var maxClasses = 0;
@@ -222,7 +218,9 @@ function drawDept(dept) {
 		if (classData[dept][bldg] > maxClasses) {
 			maxClasses = classData[dept][bldg];
 		}
-	} for (var bldg in classData[dept]) {
+	}
+
+	for (var bldg in classData[dept]) {
 		drawCircle(dept, bldg, maxClasses);
 	}
 }
@@ -240,20 +238,21 @@ function drawCircle(dept, bldg, maxClasses) {
 		radius: (classData[dept][bldg] / maxClasses) * 43 + 7 // Squeezes circle size bw 7 and 50
 	});
 
+	var classWord = "classes"
+	if (classData[dept][bldg] == 1) {
+		classWord = "class"
+	}
+
 	// Window contains building name and number of classes
 	var infoWindow= new google.maps.InfoWindow({
-		content: niceBuildingNames[bldg] + ": " + classData[dept][bldg],
+		content: niceBuildingNames[bldg] + ": " + classData[dept][bldg] + " " + classWord,
 		customInfo: ""
 	});
-
-
-
 
 	// Show infowindow on circle hover, disappear when un-hover
 	google.maps.event.addListener(circle, 'mouseover', function(ev){
 		infoWindow.setPosition(circle.getCenter());
 		infoWindow.open(map);
-
 		google.maps.event.addListenerOnce(map, 'mousemove', function(){
 	        infoWindow.close();
 	    });
@@ -267,5 +266,4 @@ function destroyCircles() {
 		allCircles.pop().setMap(null);
 	}
 	allCircles.length = 0;
-	// cityCircle.setMap(null);
 }

@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:500,700,900);
 @import url(https://fonts.googleapis.com/css?family=Vollkorn:400,700italic);
 
-
 html, body {
     height: 100%;
     width: 100%;
@@ -18,9 +17,6 @@ body {
 
 h1 {
     font-size: 9em;
-    /*text-transform: uppercase;*/
-    /*font-weight: 900;
-    font-family: 'Raleway', sans-serif;*/
     font-weight: 700;
     font-style:italic;
     font-family: 'Vollkorn', serif;
@@ -31,20 +27,27 @@ h1 {
 h2 {
 	text-align: center;
     font-size: 1.5em;
+    font-weight: 700;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration:underline;
 }
 
 #landing-page {
 	height: 100%;
 	width: 100%;
-	/*background-color: #ddd;*/
-/*	background-image: url(../img/landing-page-background.png);*/
     background-color: rgba(123, 201, 111, 0.7);
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 100;
     cursor: default;
-
     color: white;
 }
 
@@ -61,6 +64,15 @@ h2 {
 #interactive-wrapper {
 	width: 100%;
 	height: 100vh;
+}
+
+#hide-shadow {
+	position: relative;
+	height: 4px;
+	background-color: #fff;
+	width: 100;
+	z-index: 21;
+    border-top: 1px solid #D2D2D2;
 }
 
 #map {
@@ -81,15 +93,6 @@ h2 {
 	overflow-y: scroll;
 	box-sizing: border-box;
 	padding: 20px;
-}
-
-#hide-shadow {
-	position: relative;
-	height: 4px;
-	background-color: #fff;
-	width: 100;
-	z-index: 21;
-    border-top: 1px solid #D2D2D2;
 }
 
 .dept-button {
@@ -153,34 +156,8 @@ h2 {
     -ms-user-select: none;       /* Internet Explorer/Edge */
 }
 
-#article-text {
-    max-width: calc(100% - 400px);
-    width: 45em;
-    margin: 100px auto;
-    /*max-width: 100%;*/
-}
-
-#article-text h1 {
-    font-size: 5em;
-}
-
-#article-text p {
-    font-family: 'Vollkorn', serif;
-    font-size: 1.3em;
-    line-height: 1.5;
-    text-align: justify;
-    text-indent: 2em;
-    margin: 1em;
-}
-
-/*hides the 'x' from circle infowindows*/
-.gm-style-iw + div {display: none;}
-
-.fa-map-marker {
-    color: #7bc96f;
-}
-
 #close-sidebar {
+    display: none;
     position: relative;
     float: right;
     right: 0;
@@ -199,24 +176,106 @@ h2 {
     z-index: 50;
 }
 
-.visible-mobile {
+#article-text {
+    max-width: calc(100% - 400px);
+    width: 630px;
+    margin: 6rem auto 4rem auto;
+}
+
+#article-text h1 {
+    font-size: 5em;
+}
+#article-text h2 {
+    font-weight: 400;
+}
+
+#article-text p {
+    font-family: 'Vollkorn', serif;
+    font-size: 1.3em;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 2em;
+    margin: 1em 0;
+}
+
+.blockquote {
+    font-size: 2em;
+    font-family: 'Vollkorn', serif;
+    font-weight: 700;
+    font-style: italic;
+    color: #7bc96f;
+    border-top: solid .25em #7bc96f;
+    border-bottom: solid .25em #7bc96f;
+}
+
+#footer {
+    width: 100%;
+    height: 16em;
+    background-color: #7bc96f;
+    color: white;
+}
+
+#footer-text {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    text-transform:uppercase;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/*hides the 'x' from circle infowindows*/
+.gm-style-iw + div {
     display: none;
 }
 
-@media only screen and (max-width: 840px) {
+.gm-style .gm-style-iw {
+   text-indent: 7px;
+}
 
+.fa-map-marker {
+    color: #7bc96f;
+}
+
+@media only screen and (max-width: 840px) {
     #intro-title h1 {
         font-size: 6em;
     }
 
     #article-text {
-        max-width: 100%;
+        max-width: calc(100% - 4em);
+        margin: inherit auto;
     }
 
-    .visible-mobile {
+    #close-sidebar {
         display: block;
     }
 
-    /*sidebar can hide*/
-    /*stats aren't on side of article anymore but are in the article */
+    .blockquote {
+        padding: 0.5em 0;
+        margin: 1em 0;
+    }
+}
+
+@media only screen and (min-width: 841px) {
+    .blockquote {
+        display: none;
+        position: absolute;
+        min-width: calc(200px - 2em);
+        width: calc((100% - 630px)/2 - 2em);
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0 1em;
+    }
+
+    .blockquote.left {
+        left: 0;
+    }
+
+    .blockquote.right {
+        right: 0;
+    }
 }
