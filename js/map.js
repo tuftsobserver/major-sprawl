@@ -207,6 +207,8 @@ function initMap() {
 
 	map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
+
+	drawDept("amer");
 }
 
 // puts circles on the page for the given dept
